@@ -1,9 +1,18 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 group 'org.example'
 version '1.0-SNAPSHOT'
+
+allure {
+    version = '2.20.1' // Latest Allure Version
+    useJUnit5 {
+        version = '2.20.1' // Latest Allure Version
+    }
+}
+
 
 repositories {
     mavenCentral()
@@ -12,8 +21,21 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'com.codeborne:selenide:5.19.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.26'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+//    testImplementation 'com.github.javafaker:javafaker:1.0.1'
+
+    testImplementation 'io.qameta.allure:allure-selenide:2.20.1'
 }
 
 test {
     useJUnitPlatform()
+    // в тестах, вызывая `gradlew test -Dselenide.headless=true` будем передавать этот параметр в JVM (где его подтянет Selenide)
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless')
 }
