@@ -4,18 +4,24 @@ import com.codeborne.selenide.SelenideElement;
 import data.DataHelper;
 import org.openqa.selenium.By;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class CreditPage {
     private SelenideElement heading = $x("//h3[contains(text(), 'Кредит по данным карты')] ");
-    private SelenideElement cardNumber = $x("//span[contains(text(), 'Номер карты')]");
-    private SelenideElement month = $x("//span[contains(text(), 'Месяц')]");
-    private SelenideElement year = $x("//span[contains(text(), 'Год')]");
-    private SelenideElement user = $x("//span[contains(text(), 'Владелец')]");
-    private SelenideElement cvc = $x("//span[contains(text(), 'CVC/CVV')]");
+    private SelenideElement cardNumber = $x("//span[contains(@class, 'input__inner') and span[contains(text(), 'Номер карты')]]/span[@class='input__box']/input");
+    private SelenideElement month = $x("//span[contains(@class, 'input__inner') and span[contains(text(), 'Месяц')]]/span[@class='input__box']/input");
+    private SelenideElement year = $x("//span[contains(@class, 'input__inner') and span[contains(text(), 'Год')]]/span[@class='input__box']/input");
+    private SelenideElement user = $x("//span[contains(@class, 'input__inner') and span[contains(text(), 'Владелец')]]/span[@class='input__box']/input");
+    private SelenideElement cvc = $x("//span[contains(@class, 'input__inner') and span[contains(text(), 'CVC/CVV')]]/span[@class='input__box']/input");
     private SelenideElement continueButton = $x("//button[contains(., 'Продолжить')]");
+    private SelenideElement successfulPopup = $x("//div[contains(text(), 'Операция одобрена Банком')]");
+    private SelenideElement notSuccessfulPopup = $x("//div[contains(text(), 'Банк отказал')]");
+    private SelenideElement errorOldCard = $x("//span [contains(text(), 'Истёк срок')]");
+    private SelenideElement errorInvalidCard = $x("//span [contains(text(), 'Истёк срок')]");
 
 
 
@@ -33,4 +39,21 @@ public class CreditPage {
         continueButton.click();
         return new CreditPage();
     }
+
+    public void verifySuccessfulCredit() {
+        successfulPopup.shouldBe(visible, Duration.ofSeconds(8));
+    }
+
+    public void tryToCreditDeclinedCard() {
+        notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(8));
+    }
+
+    public void tryToCreditOldCard() {
+        errorOldCard.shouldBe(visible, Duration.ofSeconds(8));
+    }
+
+    public void tryToCreditInvalidCard() {
+        notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(10));
+    }
+
 }

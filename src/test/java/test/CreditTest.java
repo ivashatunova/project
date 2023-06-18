@@ -9,27 +9,26 @@ import page.PaymentPage;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
-public class PaymentTest {
-
+public class CreditTest {
 
     @Test
-    void shouldSuccessfullyPay() {
+    void shouldSuccessfullyCredit() {
         open("http://localhost:8080");
         InitPage initPage = new InitPage();
         DataHelper.PayInfo approvedCardInfo = DataHelper.getApprovedCardInfo();
-        PaymentPage paymentPage = initPage.clickPaymentButton();
-        paymentPage.pay(approvedCardInfo);
-        paymentPage.verifySuccessfulPayment();
+        CreditPage creditPage = initPage.clickCreditButton();
+        creditPage.creditPay(approvedCardInfo);
+        creditPage.verifySuccessfulCredit();
     }
 
     @Test
-    void shouldNotPayDeclinedCard() {
+    void shouldNotCreditDeclinedCard() {
         open("http://localhost:8080");
         InitPage initPage = new InitPage();
         DataHelper.PayInfo declinedCardInfo = DataHelper.getDeclinedCardInfo();
-        PaymentPage paymentPage = initPage.clickPaymentButton();
-        paymentPage.pay(declinedCardInfo);
-        paymentPage.tryToPayDeclinedCard();
+        CreditPage creditPage = initPage.clickCreditButton();
+        creditPage.creditPay(declinedCardInfo);
+        creditPage.tryToCreditDeclinedCard();
     }
 
     @Test
@@ -37,9 +36,9 @@ public class PaymentTest {
         open("http://localhost:8080");
         InitPage initPage = new InitPage();
         DataHelper.PayInfo oldCardInfo = DataHelper.getOldCardInfo();
-        PaymentPage paymentPage = initPage.clickPaymentButton();
-        paymentPage.pay(oldCardInfo);
-        paymentPage.tryToPayOldCard();
+        CreditPage creditPage = initPage.clickCreditButton();
+        creditPage.creditPay(oldCardInfo);
+        creditPage.tryToCreditOldCard();
     }
 
     @Test
@@ -47,9 +46,11 @@ public class PaymentTest {
         open("http://localhost:8080");
         InitPage initPage = new InitPage();
         DataHelper.PayInfo invalidCardInfo = DataHelper.getInvalidCardInfo();
-        PaymentPage paymentPage = initPage.clickPaymentButton();
-        paymentPage.pay(invalidCardInfo);
-        paymentPage.tryToPayInvalidCard();
+        CreditPage creditPage = initPage.clickCreditButton();
+        creditPage.creditPay(invalidCardInfo);
+        creditPage.tryToCreditInvalidCard();
     }
+
+
 
 }

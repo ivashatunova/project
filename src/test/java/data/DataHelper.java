@@ -31,7 +31,7 @@ import lombok.Value;
         }
 
         public static PayInfo getInvalidCardInfo () {
-            return new PayInfo("1111222233334446", "12", "26", "Mr Old", "456");
+            return new PayInfo("1111222233334446", "12", "26", "Mr Invalid", "456");
         }
 
 }
