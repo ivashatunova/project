@@ -24,13 +24,11 @@ public class CreditPage {
     private SelenideElement errorInvalidCard = $x("//span [contains(text(), 'Истёк срок')]");
 
 
-
-
     public CreditPage() {
         heading.shouldBe(visible);
     }
 
-    public CreditPage creditPay (DataHelper.PayInfo payInfo) {
+    public CreditPage creditPay(DataHelper.PayInfo payInfo) {
         cardNumber.setValue(payInfo.getCardNumber());
         month.setValue(payInfo.getMonth());
         year.setValue(payInfo.getYear());
@@ -41,19 +39,19 @@ public class CreditPage {
     }
 
     public void verifySuccessfulCredit() {
-        successfulPopup.shouldBe(visible, Duration.ofSeconds(8));
+        successfulPopup.shouldBe(visible, Duration.ofSeconds(15));
     }
 
     public void tryToCreditDeclinedCard() {
-        notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(8));
+        notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(15));
     }
 
     public void tryToCreditOldCard() {
-        errorOldCard.shouldBe(visible, Duration.ofSeconds(8));
+        errorOldCard.shouldBe(visible, Duration.ofSeconds(15));
     }
 
     public void tryToCreditInvalidCard() {
-        notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(10));
+        notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(15));
     }
 
 }

@@ -1,55 +1,96 @@
 package test;
 
 import data.DataHelper;
+import data.SQLHelper;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import page.CreditPage;
 import page.InitPage;
 import page.PaymentPage;
 
-import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
 public class PaymentTest {
+    @BeforeEach
+    public void cleanup() {
+        SQLHelper.cleanDatabase();
+    }
 
+
+    private PaymentPage makePayment(DataHelper.PayInfo payInfo) {
+        open("http://localhost:8080");
+        InitPage initPage = new InitPage();
+        PaymentPage paymentPage = initPage.clickPaymentButton();
+        paymentPage.pay(payInfo);
+        return paymentPage;
+    }
 
     @Test
     void shouldSuccessfullyPay() {
-        open("http://localhost:8080");
-        InitPage initPage = new InitPage();
-        DataHelper.PayInfo approvedCardInfo = DataHelper.getApprovedCardInfo();
-        PaymentPage paymentPage = initPage.clickPaymentButton();
-        paymentPage.pay(approvedCardInfo);
+        PaymentPage paymentPage = makePayment(DataHelper.getApprovedCardInfo());
         paymentPage.verifySuccessfulPayment();
     }
 
     @Test
+    void sqlApprovedAfterSuccessfullyPay() {
+        PaymentPage paymentPage = makePayment(DataHelper.getApprovedCardInfo());
+        try {
+            Thread.sleep(10_000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        String status = SQLHelper.getPayStatus();
+        Assertions.assertEquals(DataHelper.APPROVED_STATUS, status);
+    }
+
+    @Test
+        //баг
     void shouldNotPayDeclinedCard() {
-        open("http://localhost:8080");
-        InitPage initPage = new InitPage();
-        DataHelper.PayInfo declinedCardInfo = DataHelper.getDeclinedCardInfo();
-        PaymentPage paymentPage = initPage.clickPaymentButton();
-        paymentPage.pay(declinedCardInfo);
+        PaymentPage paymentPage = makePayment(DataHelper.getDeclinedCardInfo());
         paymentPage.tryToPayDeclinedCard();
+
+    }
+
+    @Test
+        //баг
+    void SqlDeclinedWithDeclinedCard() {
+        PaymentPage paymentPage = makePayment(DataHelper.getDeclinedCardInfo());
+        try {
+            Thread.sleep(10_000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        String status = SQLHelper.getPayStatus();
+        Assertions.assertEquals(DataHelper.DECLINED_STATUS, status);
+
     }
 
     @Test
     void shouldNotPayOldCard() {
-        open("http://localhost:8080");
-        InitPage initPage = new InitPage();
-        DataHelper.PayInfo oldCardInfo = DataHelper.getOldCardInfo();
-        PaymentPage paymentPage = initPage.clickPaymentButton();
-        paymentPage.pay(oldCardInfo);
+        PaymentPage paymentPage = makePayment(DataHelper.getOldCardInfo());
         paymentPage.tryToPayOldCard();
     }
 
     @Test
+    void notSqlOldCard() {
+        PaymentPage paymentPage = makePayment(DataHelper.getOldCardInfo());
+        paymentPage.tryToPayOldCard();
+        String status = SQLHelper.getPayStatus();
+        Assertions.assertNull(status);
+    }
+
+    @Test
     void shouldNotPayInvalidCard() {
-        open("http://localhost:8080");
-        InitPage initPage = new InitPage();
-        DataHelper.PayInfo invalidCardInfo = DataHelper.getInvalidCardInfo();
-        PaymentPage paymentPage = initPage.clickPaymentButton();
-        paymentPage.pay(invalidCardInfo);
+        PaymentPage paymentPage = makePayment(DataHelper.getInvalidCardInfo());
         paymentPage.tryToPayInvalidCard();
+    }
+
+    @Test
+    void notSQLInvalidCard() {
+        PaymentPage paymentPage = makePayment(DataHelper.getInvalidCardInfo());
+        paymentPage.tryToPayInvalidCard();
+        String status = SQLHelper.getPayStatus();
+        Assertions.assertNull(status);
     }
 
 }

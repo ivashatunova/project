@@ -6,6 +6,9 @@ import lombok.Value;
         private DataHelper() {
         }
 
+        public final static String APPROVED_STATUS ="APPROVED";
+        public final static String DECLINED_STATUS ="DECLINED";
+
         @Value
         public static class PayInfo {
             private String cardNumber;

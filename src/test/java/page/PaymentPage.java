@@ -36,18 +36,18 @@ public class PaymentPage {
     }
 
     public void verifySuccessfulPayment() {
-        successfulPopup.shouldBe(visible, Duration.ofSeconds(8));
+        successfulPopup.shouldBe(visible, Duration.ofSeconds(20));
     }
 
     public void tryToPayDeclinedCard() {
-        notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(8));
+        notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(20));
     }
 
     public void tryToPayOldCard() {
-        errorOldCard.shouldBe(visible, Duration.ofSeconds(8));
+        errorOldCard.shouldBe(visible, Duration.ofSeconds(20));
     }
 
     public void tryToPayInvalidCard() {
-        notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(10));
+        notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(20));
     }
 }
