@@ -17,6 +17,9 @@ public class PaymentPage {
     private SelenideElement cvc = $x("//span[contains(@class, 'input__inner') and span[contains(text(), 'CVC/CVV')]]/span[@class='input__box']/input");
     private SelenideElement continueButton = $x("//button[contains(., 'Продолжить')]");
     private SelenideElement successfulPopup = $x("//div[contains(text(), 'Операция одобрена Банком')]");
+    private SelenideElement notSuccessfulPopup = $x("//div[contains(text(), 'Банк отказал')]");
+    private SelenideElement errorOldCard = $x("//span [contains(text(), 'Истёк срок')]");
+    private SelenideElement errorInvalidCard = $x("//span [contains(text(), 'Истёк срок')]");
 
 
     public PaymentPage() {
@@ -34,5 +37,17 @@ public class PaymentPage {
 
     public void verifySuccessfulPayment() {
         successfulPopup.shouldBe(visible, Duration.ofSeconds(8));
+    }
+
+    public void tryToPayDeclinedCard() {
+        notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(8));
+    }
+
+    public void tryToPayOldCard() {
+        errorOldCard.shouldBe(visible, Duration.ofSeconds(8));
+    }
+
+    public void tryToPayInvalidCard() {
+        notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(10));
     }
 }

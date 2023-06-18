@@ -21,4 +21,34 @@ public class PaymentTest {
         paymentPage.verifySuccessfulPayment();
     }
 
+    @Test
+    void shouldNotPayDeclinedCard() {
+        open("http://localhost:8080");
+        InitPage initPage = new InitPage();
+        DataHelper.PayInfo declinedCardInfo = DataHelper.getDeclinedCardInfo();
+        PaymentPage paymentPage = initPage.clickPaymentButton();
+        paymentPage.pay(declinedCardInfo);
+        paymentPage.tryToPayDeclinedCard();
+    }
+
+    @Test
+    void shouldNotPayOldCard() {
+        open("http://localhost:8080");
+        InitPage initPage = new InitPage();
+        DataHelper.PayInfo oldCardInfo = DataHelper.getOldCardInfo();
+        PaymentPage paymentPage = initPage.clickPaymentButton();
+        paymentPage.pay(oldCardInfo);
+        paymentPage.tryToPayOldCard();
+    }
+
+    @Test
+    void shouldNotPayInvalidCard() {
+        open("http://localhost:8080");
+        InitPage initPage = new InitPage();
+        DataHelper.PayInfo invalidCardInfo = DataHelper.getInvalidCardInfo();
+        PaymentPage paymentPage = initPage.clickPaymentButton();
+        paymentPage.pay(invalidCardInfo);
+        paymentPage.tryToPayInvalidCard();
+    }
+
 }
