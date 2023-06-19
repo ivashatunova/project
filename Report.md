@@ -20,5 +20,10 @@
 
 ## Вложенные отчеты
 
-- Gradle Report: [ссылка на отчет Gradle](http://localhost:63342/project/build/reports/tests/test/index.html?_ijt=pv1qnv449937ri4gcnblbnsaih&_ij_reload=RELOAD_ON_SAVE)
-- Allure Report: [ссылка на Allure отчет](http://192.168.1.15:50638/index.html)
+- Gradle Report:
+
+![скрин отчет](https://www.evernote.com/shard/s352/sh/6b8f537f-ef38-4f94-b878-401edbe6d1b5/mVpZ5mZLpmeQ4V-z2bLMDbcfImmokH2PxsvZlEFnkRA4PpxKORfJEDZXug/res/afce515a-8841-485c-a8b6-ce7e584cd34c)
+
+- Allure Report:
+
+![скрин отчет](https://www.evernote.com/shard/s352/sh/6b2d84c6-8a20-4ca8-a469-006640b57832/YhTpNB3bvxB19SANLw3R2vsFUOOYYCNKIgtE1A3z0ieVEIkE7ChTazd2IA/res/55d5c621-84e2-46e4-8d0e-7871255f6312)
