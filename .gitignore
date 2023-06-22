@@ -3,6 +3,8 @@ Thumbs.db*
 HELP.md
 .gradle
 build/
+allure-results
+
 
 ### STS ###
 .apt_generated
