@@ -21,32 +21,26 @@ public class SQLHelper {
     }
 
 
+    @SneakyThrows
     public static String getPayStatus() {
         var sql = "select status from order_entity o\n" +
                 "join payment_entity pe on o.payment_id = pe.transaction_id\n" +
                 "order by o.created desc\n" +
                 "limit 1";
-        try (var conn = getConn()) {
-            var status = runner.query(conn, sql, new ScalarHandler<String>());
-            return status;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return null;
+        var conn = getConn();
+        var status = runner.query(conn, sql, new ScalarHandler<String>());
+        return status;
     }
 
+    @SneakyThrows
     public static String getCreditPayStatus() {
         var sql = "select status from order_entity o\n" +
                 "join credit_request_entity pe on o.payment_id = pe.bank_id\n" +
                 "order by o.created desc\n" +
                 "limit 1";
-        try (var conn = getConn()) {
-            var status = runner.query(conn, sql, new ScalarHandler<String>());
-            return status;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return null;
+        var conn = getConn();
+        var status = runner.query(conn, sql, new ScalarHandler<String>());
+        return status;
     }
 
     @SneakyThrows
