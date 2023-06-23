@@ -35,19 +35,19 @@ public class PaymentPage {
         continueButton.click();
     }
 
-    public void verifySuccessfulPayment() {
+    public void verifyApprovedCard() {
         successfulPopup.shouldBe(visible, Duration.ofSeconds(20));
     }
 
-    public void tryToPayDeclinedCard() {
+    public void verifyDeclinedCard() {
         notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(20));
     }
 
-    public void tryToPayOldCard() {
+    public void verifyOldCard() {
         errorOldCard.shouldBe(visible, Duration.ofSeconds(20));
     }
 
-    public void tryToPayInvalidCard() {
+    public void verifyInvalidCard() {
         notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(20));
     }
 }

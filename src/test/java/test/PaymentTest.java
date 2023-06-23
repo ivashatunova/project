@@ -36,7 +36,7 @@ public class PaymentTest {
     @Test
     void shouldSuccessfullyPay() {
         PaymentPage paymentPage = makePayment(DataHelper.getApprovedCardInfo());
-        paymentPage.verifySuccessfulPayment();
+        paymentPage.verifyApprovedCard();
     }
 
     @Test
@@ -55,7 +55,7 @@ public class PaymentTest {
         //баг
     void shouldNotPayDeclinedCard() {
         PaymentPage paymentPage = makePayment(DataHelper.getDeclinedCardInfo());
-        paymentPage.tryToPayDeclinedCard();
+        paymentPage.verifyDeclinedCard();
 
     }
 
@@ -76,13 +76,13 @@ public class PaymentTest {
     @Test
     void shouldNotPayOldCard() {
         PaymentPage paymentPage = makePayment(DataHelper.getOldCardInfo());
-        paymentPage.tryToPayOldCard();
+        paymentPage.verifyOldCard();
     }
 
     @Test
     void notSqlOldCard() {
         PaymentPage paymentPage = makePayment(DataHelper.getOldCardInfo());
-        paymentPage.tryToPayOldCard();
+        paymentPage.verifyOldCard();
         String status = SQLHelper.getPayStatus();
         Assertions.assertNull(status);
     }
@@ -90,13 +90,13 @@ public class PaymentTest {
     @Test
     void shouldNotPayInvalidCard() {
         PaymentPage paymentPage = makePayment(DataHelper.getInvalidCardInfo());
-        paymentPage.tryToPayInvalidCard();
+        paymentPage.verifyInvalidCard();
     }
 
     @Test
     void notSQLInvalidCard() {
         PaymentPage paymentPage = makePayment(DataHelper.getInvalidCardInfo());
-        paymentPage.tryToPayInvalidCard();
+        paymentPage.verifyInvalidCard();
         String status = SQLHelper.getPayStatus();
         Assertions.assertNull(status);
     }

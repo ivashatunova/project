@@ -7,9 +7,7 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 import page.CreditPage;
 import page.InitPage;
-import page.PaymentPage;
 
-import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
 public class CreditTest {
@@ -39,13 +37,13 @@ public class CreditTest {
     @Test
     void shouldSuccessfullyCredit() {
         CreditPage creditPage = makeCreditPayment(DataHelper.getApprovedCardInfo());
-        creditPage.verifySuccessfulCredit();
+        creditPage.verifyApprovedCard();
     }
 
     @Test
     void sqlApprovedAfterSuccessfullyCredit() {
         CreditPage creditPage = makeCreditPayment(DataHelper.getApprovedCardInfo());
-        creditPage.verifySuccessfulCredit();
+        creditPage.verifyApprovedCard();
         String status = SQLHelper.getCreditPayStatus();
         Assertions.assertEquals(DataHelper.APPROVED_STATUS, status);
     }
@@ -53,7 +51,7 @@ public class CreditTest {
     @Test
     void shouldNotCreditDeclinedCard() {
         CreditPage creditPage = makeCreditPayment(DataHelper.getDeclinedCardInfo());
-        creditPage.tryToCreditDeclinedCard();
+        creditPage.verifyDeclinedCard();
     }
 
     @Test
@@ -74,14 +72,14 @@ public class CreditTest {
     void shouldNotCreditOldCard() {
 
         CreditPage creditPage = makeCreditPayment(DataHelper.getOldCardInfo());
-        creditPage.tryToCreditOldCard();
+        creditPage.verifyOldCard();
 
     }
 
     @Test
     void notSqlOldCardCredit() {
         CreditPage creditPage = makeCreditPayment(DataHelper.getOldCardInfo());
-        creditPage.tryToCreditOldCard();
+        creditPage.verifyOldCard();
         String status = SQLHelper.getCreditPayStatus();
         Assertions.assertNull(status);
     }
@@ -89,13 +87,13 @@ public class CreditTest {
     @Test
     void shouldNotCreditInvalidCard() {
         CreditPage creditPage = makeCreditPayment(DataHelper.getInvalidCardInfo());
-        creditPage.tryToCreditInvalidCard();
+        creditPage.verifyInvalidCard();
     }
 
     @Test
     void notSQLInvalidCardCredit() {
         CreditPage creditPage = makeCreditPayment(DataHelper.getInvalidCardInfo());
-        creditPage.tryToCreditInvalidCard();
+        creditPage.verifyInvalidCard();
         String status = SQLHelper.getPayStatus();
         Assertions.assertNull(status);
     }

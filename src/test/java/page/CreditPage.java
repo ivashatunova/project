@@ -2,7 +2,6 @@ package page;
 
 import com.codeborne.selenide.SelenideElement;
 import data.DataHelper;
-import org.openqa.selenium.By;
 
 import java.time.Duration;
 
@@ -37,19 +36,19 @@ public class CreditPage {
         continueButton.click();
     }
 
-    public void verifySuccessfulCredit() {
+    public void verifyApprovedCard() {
         successfulPopup.shouldBe(visible, Duration.ofSeconds(15));
     }
 
-    public void tryToCreditDeclinedCard() {
+    public void verifyDeclinedCard() {
         notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(15));
     }
 
-    public void tryToCreditOldCard() {
+    public void verifyOldCard() {
         errorOldCard.shouldBe(visible, Duration.ofSeconds(15));
     }
 
-    public void tryToCreditInvalidCard() {
+    public void verifyInvalidCard() {
         notSuccessfulPopup.shouldBe(visible, Duration.ofSeconds(15));
     }
 
