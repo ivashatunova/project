@@ -28,14 +28,13 @@ public class CreditPage {
         heading.shouldBe(visible);
     }
 
-    public CreditPage creditPay(DataHelper.PayInfo payInfo) {
+    public void creditPay(DataHelper.PayInfo payInfo) {
         cardNumber.setValue(payInfo.getCardNumber());
         month.setValue(payInfo.getMonth());
         year.setValue(payInfo.getYear());
         user.setValue(payInfo.getCardHolder());
         cvc.setValue(payInfo.getCvc());
         continueButton.click();
-        return new CreditPage();
     }
 
     public void verifySuccessfulCredit() {
