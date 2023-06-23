@@ -58,11 +58,7 @@ public class CreditTest {
         //баг
     void sqlDeclinedWithDeclinedCardCredit() {
         CreditPage creditPage = makeCreditPayment(DataHelper.getDeclinedCardInfo());
-        try {
-            Thread.sleep(10_000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        creditPage.verifyDeclinedCard();
         String status = SQLHelper.getCreditPayStatus();
         Assertions.assertEquals(DataHelper.DECLINED_STATUS, status);
 

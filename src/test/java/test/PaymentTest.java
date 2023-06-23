@@ -42,11 +42,7 @@ public class PaymentTest {
     @Test
     void sqlApprovedAfterSuccessfullyPay() {
         PaymentPage paymentPage = makePayment(DataHelper.getApprovedCardInfo());
-        try {
-            Thread.sleep(10_000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        paymentPage.verifyApprovedCard();
         String status = SQLHelper.getPayStatus();
         Assertions.assertEquals(DataHelper.APPROVED_STATUS, status);
     }
@@ -56,21 +52,15 @@ public class PaymentTest {
     void shouldNotPayDeclinedCard() {
         PaymentPage paymentPage = makePayment(DataHelper.getDeclinedCardInfo());
         paymentPage.verifyDeclinedCard();
-
     }
 
     @Test
         //баг
     void SqlDeclinedWithDeclinedCard() {
         PaymentPage paymentPage = makePayment(DataHelper.getDeclinedCardInfo());
-        try {
-            Thread.sleep(10_000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        paymentPage.verifyDeclinedCard();
         String status = SQLHelper.getPayStatus();
         Assertions.assertEquals(DataHelper.DECLINED_STATUS, status);
-
     }
 
     @Test
