@@ -8,8 +8,8 @@
 ## Результаты тестирования
 
 - Количество тест-кейсов: 16
-- Процент успешных тест-кейсов: 87,5%
-- Процент неуспешных тест-кейсов: 12,5%
+- Процент успешных тест-кейсов: 75 %
+- Процент неуспешных тест-кейсов: 25%
 
 ## Рекомендации
 
@@ -22,8 +22,8 @@
 
 - Gradle Report:
 
-![скрин отчет](https://www.evernote.com/shard/s352/sh/6b8f537f-ef38-4f94-b878-401edbe6d1b5/mVpZ5mZLpmeQ4V-z2bLMDbcfImmokH2PxsvZlEFnkRA4PpxKORfJEDZXug/res/afce515a-8841-485c-a8b6-ce7e584cd34c)
+![скрин отчет](https://www.evernote.com/shard/s352/sh/85d82471-9d7c-487d-a496-87627ff43465/T6V6KvBqiXXSLiHDCQkdohwI8W0cm6mVoXFpDnZ6z1IF8YkHBAudA_Cb3A/res/b53e77bb-909f-45e0-9fde-f65979dedd0f)
 
 - Allure Report:
 
-![скрин отчет](https://www.evernote.com/shard/s352/sh/6b2d84c6-8a20-4ca8-a469-006640b57832/YhTpNB3bvxB19SANLw3R2vsFUOOYYCNKIgtE1A3z0ieVEIkE7ChTazd2IA/res/55d5c621-84e2-46e4-8d0e-7871255f6312)
+![скрин отчет](https://www.evernote.com/shard/s352/sh/109584c4-4646-4cb3-b178-e3793f9cb86f/0G3zxUJZ6a5oaJQP1sappFpTg3tDiyovVTe98IR26WN6Apj8e7gqOpQmCw/res/05477e5f-f04d-4eb8-b79d-66bc3e9b6991)
